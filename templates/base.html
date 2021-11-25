@@ -12,6 +12,13 @@
   </head>
   <body>
 
+  <div class="list-group">
+      <a href="{% url 'index' %}" class="list-group-item">Все категории</a>
+      {% for i in category %}
+          <a href="{% url 'category' i.id %}" class="list-group-item">{{ i }}</a>
+      {% endfor %}
+  </div>
+
   {% block content %}
 
   {% endblock %}

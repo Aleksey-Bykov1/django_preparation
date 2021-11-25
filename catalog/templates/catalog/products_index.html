@@ -8,13 +8,14 @@
       <th scope="col">id</th>
       <th scope="col">Title</th>
       <th scope="col">Price</th>
+      <th scope="col">Category</th>
     </tr>
   </thead>
   <tbody>
 
     {% for object in object_list %}
         <tr>
-            <td>{{ object.id }}</td><td>{{ object.title }}</td><td>{{ object.price }}</td>
+            <td>{{ object.id }}</td><td>{{ object.title }}</td><td>{{ object.price }}</td><td>{{ object.category }}</td>
         </tr>
     {% endfor %}
 
