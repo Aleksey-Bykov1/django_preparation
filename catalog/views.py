@@ -7,11 +7,14 @@ from catalog.models import Product, Category
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/products_index.html'
-    queryset = Product.objects.select_related('category').all()
+    queryset = Product.on_site.select_related('category').all()
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
         context['category'] = Category.objects.all()
+        context.update({
+            'site': self.request.site
+        })
         return context
 
     def get_queryset(self):
