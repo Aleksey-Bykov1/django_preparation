@@ -11,3 +11,24 @@ services:
       POSTGRES_USER: alex
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: test
+
+  backend:
+    build:
+      context: ./django_preparation/
+    ports:
+      - 8080:8080
+    command: bash - c "
+      python manage.py migrate
+      && export DJANGO_SETTINGS_MODULE = django_preparation.settings.prod_ext
+      && gunicorn django_preparation.wsgi -b 0.0.0.0:8080
+      "
+    depends_on:
+      - db
+
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
