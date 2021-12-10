@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.sites.models import Site
+from django.contrib.sites.managers import CurrentSiteManager
 
 
 class Category(models.Model):
@@ -16,6 +18,9 @@ class Product(models.Model):
     price = models.DecimalField(verbose_name='Price', max_digits=8, decimal_places=2, default=0)
     unit = models.CharField(verbose_name='Unit', max_length=8)
     vendor = models.CharField(verbose_name='Vendor', max_length=255)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE, blank=True, null=True)
+    objects = models.Manager()
+    on_site = CurrentSiteManager('site')
 
     def __str__(self):
         return self.title
